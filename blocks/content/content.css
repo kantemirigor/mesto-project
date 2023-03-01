@@ -1,12 +1,10 @@
-.content
-{
-    max-width: 880px;
-    margin: 0 auto;
+.content {
+  max-width: 880px;
+  margin: 0 auto;
+  flex: 1;
 }
-@media (max-width:1023px)
-{
-    .content
-    {
-        padding: 0 20px;
-    }
+@media (max-width: 1023px) {
+  .content {
+    padding: 0 20px;
+  }
 }

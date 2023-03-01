@@ -1,21 +1,17 @@
-.footer
-{
-    margin: 0 auto;
-    max-width: 880px;
-    margin-top: 66px;
+.footer {
+  width: 100%;
+  margin: 66px auto;
+  max-width: 880px;
+  flex-shrink: 0;
 }
-@media (max-width:1023px)
-{
-    .footer
-    {
-        padding:0 20px
-    }
+@media (max-width: 1023px) {
+  .footer {
+    padding: 0 20px;
+  }
 }
-@media (max-width:767px)
-{
-    {
-        margin-top: 54px;
-        max-width: 288px;
-        margin: 0 auto;
-    }
+@media (max-width: 767px) {
+   {
+    margin-top: 54px;
+    max-width: 288px;
+  }
 }

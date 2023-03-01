@@ -1,6 +1,5 @@
-.element__description
-{
-    padding: 0 19px;
-    min-height: 75px;
-    display: flex;
+.element__description {
+  padding: 0 19px;
+  min-height: 75px;
+  display: flex;
 }

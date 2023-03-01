@@ -1,15 +1,15 @@
-.footer__text
-{
-    font-size: 18px;
-    color:#545454;
-    font-style: normal;
-    font-weight: 400;
+.footer__text {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  color: #545454;
+  font-style: normal;
+  line-height: 22px;
+  font-weight: 400;
 }
-@media (max-width:767px)
-{
-    .footer__text
-    {
-        font-size: 14px;
-        line-height: 17px;
-    }
+@media (max-width: 767px) {
+  .footer__text {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
