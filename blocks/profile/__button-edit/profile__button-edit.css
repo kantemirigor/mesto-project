@@ -8,18 +8,25 @@
   height: 24px;
   width: 24px;
   align-self: flex-end;
-  margin-left: 18px;
-  margin-bottom: 18px;
+  position: absolute;
+  right: -40px;
+  top: 16px;
 }
 .profile__button-edit:hover {
   opacity: 0.6;
   cursor: pointer;
 }
+@media (max-width: 1023px) {
+  .profile__button-edit {
+    right: 110px;
+  }
+}
 @media (max-width: 767px) {
   .profile__button-edit {
     width: 18px;
     height: 18px;
-    margin: 0px 4px 15px 10px;
+    right: 37px;
+    top: 34px;
     background-size: auto 7.5px;
   }
 }

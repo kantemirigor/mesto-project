@@ -9,12 +9,18 @@
   overflow: hidden;
   max-width: 294px;
 }
+@media (max-width: 1023px) {
+  .profile__title {
+    text-align: center;
+    margin: 0 auto;
+  }
+}
 @media (max-width: 767px) {
   .profile__title {
     text-align: center;
     max-width: 250px;
     font-size: 27px;
     line-height: 33px;
-    margin: 25px 0 7px 30px;
+    margin: 25px 0 7px 0px;
   }
 }
