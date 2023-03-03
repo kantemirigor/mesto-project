@@ -7,26 +7,18 @@
   background-image: url(../../../images/pen.svg);
   height: 24px;
   width: 24px;
-  align-self: flex-end;
-  position: absolute;
-  right: -40px;
-  top: 16px;
+  align-self: center;
+  margin-left: 18px;
 }
 .profile__button-edit:hover {
   opacity: 0.6;
   cursor: pointer;
 }
-@media (max-width: 1023px) {
-  .profile__button-edit {
-    right: 110px;
-  }
-}
 @media (max-width: 767px) {
   .profile__button-edit {
-    width: 18px;
     height: 18px;
-    right: 37px;
-    top: 34px;
+    width: 18px;
     background-size: auto 7.5px;
+    margin-left: 10px;
   }
 }
