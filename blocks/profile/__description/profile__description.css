@@ -8,6 +8,8 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 336px;
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 @media (max-width: 1023px) {
   .profile__description {
@@ -19,7 +21,7 @@
   .profile__description {
     font-size: 14px;
     line-height: 17px;
-    max-width: 282px;
+    max-width: 210px;
     margin-top: 6px;
   }
 }
