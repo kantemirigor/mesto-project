@@ -39,14 +39,13 @@ const popupInputs = popup.querySelectorAll('.popup__input');
 const formElement = popup.querySelector('.popup__form');
 
 for (let i = 0; i < initialCards.length; i++) {
-    let element = tempElement.querySelector(".element").cloneNode(true);
+    const element = tempElement.querySelector(".element").cloneNode(true);
     element.querySelector('.element__image').src = initialCards[i].link;
     element.querySelector('.element__text').textContent= initialCards[i].name;  
     elements.append(element);
 }
 
 
-formElement.addEventListener('submit', saveProfile);  // Нажатие кнопки "Сохранить" в попап,запускает функцию Saveform
 
 function saveProfile(evt) {
     evt.preventDefault();
@@ -54,19 +53,25 @@ function saveProfile(evt) {
     profileDescription.textContent = popupInputs[1].value;
     
 }
-function test(evt)
-{
+function saveMesto(evt){
     evt.preventDefault();
-    console.log("С кайфом")
+    const element = tempElement.querySelector(".element").cloneNode(true);
+    element.querySelector('.element__image').src = popupInputs[1].value;
+    element.querySelector('.element__text').textContent= popupInputs[0].value;  
+    elements.prepend(element);
 }
 popupCloseButton.addEventListener('click',function(){
     popup.classList.remove('popup_opened');
+    formElement.removeEventListener('submit', saveProfile); 
+    formElement.removeEventListener('submit', saveMesto); 
+
 })
 buttonEdit.addEventListener('click',function(){
     page.append(popup);
     popup.classList.add('popup_opened');
     popupInputs[0].value = profileTitle.textContent;
     popupInputs[1].value = profileDescription.textContent;
+    formElement.addEventListener('submit', saveProfile); 
 })
 buttonAdd.addEventListener('click',function(){
     page.append(popup);
@@ -77,5 +82,17 @@ buttonAdd.addEventListener('click',function(){
     popupInputs[0].placeholder ="Название"; 
     popupInputs[1].placeholder = "Ссылка на картинку";
     popup.querySelector('.popup__submit-button').value = "Создать";
+    formElement.addEventListener('submit', saveMesto); 
 })
+
+
+const elementLike = document.querySelectorAll('.element__like');
+elements.onclick = function(event) {
+  let target = event.target;
+  console.log(target.classList.value);
+  if(target.classList.value === 'element__like')
+  {
+    target.classList.toggle('element__like_active')
+  }
+};
 
