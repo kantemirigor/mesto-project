@@ -89,10 +89,34 @@ buttonAdd.addEventListener('click',function(){
 const elementLike = document.querySelectorAll('.element__like');
 elements.onclick = function(event) {
   let target = event.target;
-  console.log(target.classList.value);
-  if(target.classList.value === 'element__like')
+  if(target.id === 'like')
   {
     target.classList.toggle('element__like_active')
   }
 };
+const delElement = document.querySelectorAll('element__trash');
+elements.onclick = function(event){
+  console.log(popupCloseButton);
+  let target = event.target;
+  const tempPopupImage = document.querySelector('#popup-image').content;
+  const popupImage = tempPopupImage.querySelector(".popup").cloneNode(true);
+  if(target.id === 'delete')
+  {
+    target.parentElement.remove();
+  }
+  if(target.id === 'element-image')
+  {
+    popupImage.querySelector('.popup__image').src = target.src;
+    popupImage.querySelector('.popup__image-title').textContent = target.nextElementSibling.firstElementChild.textContent;
+    const popupCloseButton2 = popupImage.querySelector('.popup__close-button');
+    page.append(popupImage);
+    popupCloseButton2.addEventListener('click',function(){
+      popup.classList.remove('popup_opened');
+    })
+  }
+}
+
+
+
+
 

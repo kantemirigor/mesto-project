@@ -80,13 +80,23 @@
           <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
         </div>
     </div> -->
+    <template id="popup-image">
+        <div class="popup popup_opened">
+            <div class="popup__image-container">
+                <img src="images/img1.jpg" alt="Предпросмотр изображения" class="popup__image">
+                <p class="popup__image-title">текст</p>
+                <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+            </div>
+        </div>
+    </template>
     <template id="temp-element">
         <article class="element">
-            <img src="images/img3.jpg" alt="Горный хребет домбай" class="element__image">
+            <img id="element-image" src="images/img3.jpg" alt="Фотография" class="element__image">
             <div class="element__description">
                 <h2 class="element__text">Домбай</h2>
-                <button type="button" class="element__like"></button>
+                <button type="button" id="like" class="element__like"></button>
             </div>
+            <button type="button" id="delete" class="element__trash"></button>
         </article>
     </template>
     <template id="temp-popup">
