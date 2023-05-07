@@ -69,18 +69,36 @@
     <footer class="footer">
         <p class="footer__text">© 2023 Mesto Russia</p>
     </footer>
-    <!-- <div class="popup">
+    <div class="popup popup-profile">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form" action="#" name="popup__form">
-                    <input name="popup__input-name" class="popup__input" type="text" placeholder="Жак-Ив Кусто">
-                    <input name="popup__input-description" class="popup__input" type="text" placeholder="Исследователь океана">
+                    <input name="popup__input-name" id="popup__input-name" class="popup__input" type="text" placeholder="Жак-Ив Кусто">
+                    <input name="popup__input-description" id="popup__input-description" class="popup__input" type="text" placeholder="Исследователь океана">
             <input class="popup__submit-button" type="submit" value="Сохранить">
             </form>
           <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
         </div>
-    </div> -->
-    <template id="popup-image">
+    </div>
+    <div class="popup popup-mesto">
+        <div class="popup__container">
+            <h2 class="popup__title">Название</h2>
+            <form class="popup__form" action="#" name="popup__form">
+                    <input name="popup__input-title" id="popup__input-title" class="popup__input" type="text" placeholder="Название">
+                    <input name="popup__input-link" id="popup__input-link" class="popup__input" type="text" placeholder="Ссылка на картинку">
+            <input class="popup__submit-button" type="submit" value="Сохранить">
+            </form>
+          <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+        </div>
+    </div>
+    <div class="popup popup-image">
+        <div class="popup__image-container">
+            <img src="images/img1.jpg" alt="Предпросмотр изображения" class="popup__image">
+            <p class="popup__image-title">текст</p>
+            <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+        </div>
+    </div>
+    <!-- <template id="popup-image">
         <div class="popup popup_opened">
             <div class="popup__image-container">
                 <img src="images/img1.jpg" alt="Предпросмотр изображения" class="popup__image">
@@ -88,7 +106,7 @@
                 <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
             </div>
         </div>
-    </template>
+    </template> -->
     <template id="temp-element">
         <article class="element">
             <img id="element-image" src="images/img3.jpg" alt="Фотография" class="element__image">
@@ -99,7 +117,7 @@
             <button type="button" id="delete" class="element__trash"></button>
         </article>
     </template>
-    <template id="temp-popup">
+    <!-- <template id="temp-popup">
         <div class="popup">
                 <div class="popup__container">
                     <h2 class="popup__title">Редактировать профиль</h2>
@@ -111,7 +129,7 @@
                   <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
                 </div>
             </div>
-    </template>
+    </template> -->
     <script src="script.js"></script>
 </body>
 </html>
