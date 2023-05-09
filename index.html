@@ -29,30 +29,30 @@
     <div class="popup popup-profile">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form" action="#" name="popup__form">
-                    <input name="popup__input-name" id="popup__input-name" class="popup__input" type="text" placeholder="Жак-Ив Кусто">
-                    <input name="popup__input-description" id="popup__input-description" class="popup__input" type="text" placeholder="Исследователь океана">
+            <form class="popup__form" id="popup-edit" action="#" name="popup__form">
+                    <input name="popup__input-name" id="popup__input-name" class="popup__input" type="text" placeholder="Имя">
+                    <input name="popup__input-description" id="popup__input-description" class="popup__input" type="text" placeholder="Вид деятельности">
             <input class="popup__submit-button" type="submit" value="Сохранить">
             </form>
-          <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+          <button class="popup__close-button" id="close-edit-popup" aria-label="Закрыть окно" type="button"></button>
         </div>
     </div>
     <div class="popup popup-mesto">
         <div class="popup__container">
             <h2 class="popup__title">Название</h2>
-            <form class="popup__form" action="#" name="popup__form">
+            <form class="popup__form" id="popup-mesto" action="#" name="popup__form">
                     <input name="popup__input-title" id="popup__input-title" class="popup__input" type="text" placeholder="Название">
                     <input name="popup__input-link" id="popup__input-link" class="popup__input" type="text" placeholder="Ссылка на картинку">
             <input class="popup__submit-button" type="submit" value="Сохранить">
             </form>
-          <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+          <button class="popup__close-button" id="close-mesto-popup" aria-label="Закрыть окно" type="button"></button>
         </div>
     </div>
     <div class="popup popup-image">
         <div class="popup__image-container">
             <img src="images/img1.jpg" alt="Предпросмотр изображения" class="popup__image">
             <p class="popup__image-title">текст</p>
-            <button class="popup__close-button" aria-label="Закрыть окно" type="button"></button>
+            <button class="popup__close-button" id="close-image-popup" aria-label="Закрыть окно" type="button"></button>
         </div>
     </div>
     <template id="temp-element">
@@ -65,6 +65,7 @@
             <button type="button" id="delete" class="element__trash"></button>
         </article>
     </template>
+    <script src="constants.js"></script> 
     <script src="script.js"></script>
 </body>
 </html>
