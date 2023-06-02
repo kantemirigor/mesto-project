@@ -13,7 +13,7 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img src="images/avatar.jpg" alt="Картинка профиля" class="profile__avatar">
+            <button class="profile__edit"><img src="images/avatar.jpg" alt="Картинка профиля" class="profile__avatar"></button>
             <div class="profile__info">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
                 <button type="button" class="profile__button-edit"></button>    
@@ -53,6 +53,16 @@
             <img src="images/img1.jpg" alt="Предпросмотр изображения" class="popup__image">
             <p class="popup__image-title">текст</p>
             <button class="popup__close-button" id="close-image-popup" aria-label="Закрыть окно" type="button"></button>
+        </div>
+    </div>
+    <div class="popup popup-avatar">
+        <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="popup__form" id="popup-avatar" action="#" name="popup__form">
+                    <input name="popup__input-link" id="popup__input-link-avatar" class="popup__input" type="text" placeholder="Ссылка на картинку">
+            <input class="popup__submit-button" type="submit" value="Сохранить">
+            </form>
+          <button class="popup__close-button" id="close-avatar-popup" aria-label="Закрыть окно" type="button"></button>
         </div>
     </div>
     <template id="temp-element">

@@ -20,6 +20,13 @@ const mestoTitle = document.querySelector('#popup__input-title');
 const popupBigImage = document.querySelector('.popup__image');
 const popupBigImageTitle = document.querySelector('.popup__image-title');
 
+const popup = document.querySelectorAll('.popup');
+const buttonEditAvatar = document.querySelector('.profile__edit');
+const popupAvatar = document.querySelector('.popup-avatar');
+const buttonCloseAvatar = document.querySelector('#close-avatar-popup');
+const formAvatarEdit = document.querySelector('#popup-avatar');
+const profileImage = document.querySelector('.profile__avatar');
+
 initialCards.forEach(function(elem){
   const element = createElement(elem.link,elem.name);
   elements.append(element);
@@ -98,3 +105,35 @@ elements.onclick = function(event) {
     openPopup(popupImage);
   }
 };
+
+popup.forEach(element => { // Закрытие по оверлаю и Esc
+  element.addEventListener('click',function(event){
+    event.target.classList.value.split(' ').forEach(elem => {
+      if(elem === 'popup')
+      {
+        closePopup(element);
+      }
+    });
+  })
+  document.addEventListener('keydown', function(event) {
+    if(event.key === "Escape")
+    {
+      closePopup(element);
+    }
+  });  
+});
+
+buttonEditAvatar.addEventListener('click',function(){
+  openPopup(popupAvatar);
+});
+buttonCloseAvatar.addEventListener('click',function(){
+  closePopup(popupAvatar);
+})
+formAvatarEdit.addEventListener('submit',submitEditAvatar);
+
+function submitEditAvatar(evt){
+  evt.preventDefault();
+  profileImage.src = document.querySelector('#popup__input-link-avatar').value
+  formAvatarEdit.reset();
+  closePopup(popupAvatar);
+}
