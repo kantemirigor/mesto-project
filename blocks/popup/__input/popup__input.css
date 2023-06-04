@@ -4,7 +4,6 @@
   line-height: 17px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin-bottom: 37px;
   width: 100%;
 }
 .popup__input:last-child {
@@ -18,3 +17,7 @@
     margin-bottom: 0px;
   }
 }
+/* .popup__input:invalid
+{
+  border-color: red;
+} */

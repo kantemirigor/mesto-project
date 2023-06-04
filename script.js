@@ -6,14 +6,17 @@ const buttonCloseProfile = document.querySelector("#close-edit-popup");
 const buttonClosePopupAddCard = document.querySelector("#close-mesto-popup");
 const buttonCloseImage = document.querySelector("#close-image-popup");
 const buttonSubmit = document.querySelectorAll('.popup__submit-button');
-const inputName =  document.querySelector('#popup__input-name');
-const inputDescription =  document.querySelector('#popup__input-description');
+
+const formElementEdit = document.querySelector('#popup-edit');
+const inputName =  formElementEdit.querySelector('#popup__input-name');
+const inputDescription =  formElementEdit.querySelector('#popup__input-description');
+
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const buttonOpenPopupAddCard = document.querySelector('.profile__button-add');
 const popupAddCard = document.querySelector('.popup-mesto');
 const popupImage = document.querySelector('.popup-image');
-const formElementEdit = document.querySelector('#popup-edit');
+
 const formElementMesto = document.querySelector('#popup-mesto');
 const mestoUrl = document.querySelector('#popup__input-link');
 const mestoTitle = document.querySelector('#popup__input-title');
@@ -85,7 +88,7 @@ function submitAddCardForm(evt){
   elements.prepend(element);
   mestoUrl.value = '';
   mestoTitle.value = ''; 
-  closePopup(popupAddCard)();
+  closePopup(popupAddCard);
 }
 elements.onclick = function(event) {
   const target = event.target;
@@ -137,3 +140,68 @@ function submitEditAvatar(evt){
   formAvatarEdit.reset();
   closePopup(popupAvatar);
 }
+
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const formError = formElement.querySelector(`.${inputElement.id}-error`); 
+  inputElement.classList.add('popup__input_error');
+  formError.textContent = errorMessage;
+  formError.classList.add('popup__text_error_active');
+};
+
+const hideInputError = (formElement, inputElement) => {
+  const formError = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__input_error');
+  formError.classList.remove('popup__text_error_active');
+  formError.textContent = '';
+};
+
+const isValid = (formElement, inputElement) => {
+  if (inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+  inputElement.setCustomValidity("");
+  }
+  if (!inputName.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}; 
+
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+        buttonElement.disabled = true;
+    buttonElement.classList.add('popup__submit-button_disabled');
+  } else {
+        buttonElement.disabled = false;
+    buttonElement.classList.remove('popup__submit-button_disabled');
+  }
+}; 
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const buttonElement = formElement.querySelector('.popup__submit-button');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement)
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    setEventListeners(formElement);
+  });
+};
+enableValidation(); 
+
