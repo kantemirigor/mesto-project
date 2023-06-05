@@ -161,7 +161,7 @@ const isValid = (formElement, inputElement) => {
   } else {
   inputElement.setCustomValidity("");
   }
-  if (!inputName.validity.valid) {
+  if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
     hideInputError(formElement, inputElement);
