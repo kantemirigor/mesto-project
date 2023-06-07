@@ -5,15 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <link rel="stylesheet" href="pages/index.css">
 </head>
 <body class="page">
     <header class="header">
-        <img src="images/logo.svg" alt="Логотип Mesto Russia" class="logo">
+        <img src="<%=require('./images/logo.svg')%>" alt="Логотип Mesto Russia" class="logo">
     </header>
     <main class="content">
         <section class="profile">
-            <button class="profile__edit"><img src="images/avatar.jpg" alt="Картинка профиля" class="profile__avatar"></button>
+            <button class="profile__edit"><img src="<%=require('./images/avatar.jpg')%>" alt="Картинка профиля" class="profile__avatar"></button>
             <div class="profile__info">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
                 <button type="button" class="profile__button-edit"></button>    
@@ -91,7 +90,5 @@
             <button type="button" id="delete" class="element__trash"></button>
         </article>
     </template>
-    <script src="constants.js"></script> 
-    <script src="script.js"></script>
 </body>
 </html>
