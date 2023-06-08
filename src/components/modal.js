@@ -1,13 +1,15 @@
 import {
-    popup  } from './constants.js';
+    popups  } from './constants.js';
 
 export function openPopup(popup){
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEscape); 
 }
 export function closePopup(popup){
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEscape);
 }
-popup.forEach(element => { // Закрытие по оверлаю и Esc
+popups.forEach(element => {
     element.addEventListener('click',function(event){
       event.target.classList.value.split(' ').forEach(elem => {
         if(elem === 'popup')
@@ -16,10 +18,10 @@ popup.forEach(element => { // Закрытие по оверлаю и Esc
         }
       });
     })
-    document.addEventListener('keydown', function(event) {
-      if(event.key === "Escape")
-      {
-        closePopup(element);
-      }
-    });  
   });
+  function closeByEscape(evt) {
+    if (evt.key === 'Escape') {
+      const openedPopup = document.querySelector('.popup_opened');  // Спасибо за помощь!)
+      closePopup(openedPopup)
+    }
+  }

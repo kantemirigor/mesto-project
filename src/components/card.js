@@ -20,8 +20,8 @@ elements.addEventListener('click',function(event){
     if(target.id === 'element-image')
     {
       popupBigImage.src = target.src;
-      popupBigImage.alt = target.nextElementSibling.firstElementChild.textContent;
-      popupBigImageTitle.textContent = target.nextElementSibling.firstElementChild.textContent;
+      popupBigImage.alt = target.closest('.element').textContent;
+      popupBigImageTitle.textContent = target.closest('.element').textContent;
       openPopup(popupImage);
     }
   }) 

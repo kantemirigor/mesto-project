@@ -4,9 +4,7 @@ import {
   elements,
   popupProfile,
   buttonOpenPopupEditProfile,
-  buttonCloseProfile,
-  buttonClosePopupAddCard,
-  buttonCloseImage,
+  closeButtons,
   formElementEdit,
   inputName,
   inputDescription,
@@ -14,8 +12,8 @@ import {
   profileDescription,
   buttonOpenPopupAddCard,
   popupAddCard,
-  popupImage,
   formElementMesto,
+  popupInputAvatar,
   mestoUrl,
   mestoTitle,
   buttonEditAvatar,
@@ -43,18 +41,19 @@ initialCards.forEach(function(elem){
 buttonOpenPopupEditProfile.addEventListener('click',editPopupProfile);
 buttonOpenPopupAddCard.addEventListener('click',function()
 {
+  const buttonElement = formElementMesto.querySelector('.popup__submit-button');
+  if(mestoUrl.value === '' || mestoTitle === '')
+  {
+    buttonElement.classList.add('popup__submit-button_disabled');
+    buttonElement.disabled = true;
+  }
   openPopup(popupAddCard);
 });
-buttonCloseProfile.addEventListener('click',function(){
-  closePopup(popupProfile);
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
 });
-buttonClosePopupAddCard.addEventListener('click',function()
-{
-  closePopup(popupAddCard);
-});
-buttonCloseImage.addEventListener('click',function(){
-  closePopup(popupImage);
-});
+
 formElementEdit.addEventListener('submit',submitSaveProfile);
 formElementMesto.addEventListener('submit',submitAddCardForm);
 
@@ -70,16 +69,14 @@ function submitSaveProfile(evt){
   evt.preventDefault();
   profileTitle.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
-  inputName.value = '';
-  inputDescription.value = '';
+  formElementEdit.reset();
   closePopup(popupProfile);
 }
 function submitAddCardForm(evt){
   evt.preventDefault();
   const element = createElement(mestoUrl.value,mestoTitle.value)
   elements.prepend(element);
-  mestoUrl.value = '';
-  mestoTitle.value = ''; 
+  formElementMesto.reset();
   closePopup(popupAddCard);
 }
 
@@ -94,7 +91,7 @@ formAvatarEdit.addEventListener('submit',submitEditAvatar);
 
 function submitEditAvatar(evt){
   evt.preventDefault();
-  profileImage.src = document.querySelector('#popup__input-link-avatar').value
+  profileImage.src = popupInputAvatar.value
   formAvatarEdit.reset();
   closePopup(popupAvatar);
 }
