@@ -1,0 +1,6 @@
+.element__likes
+{
+    margin: auto 3px auto auto;
+    display: flex;
+    flex-direction: column;
+}

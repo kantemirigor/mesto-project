@@ -6,12 +6,10 @@
   height: 22px;
   background-image: url(../../../images/heart.svg);
   background-size: 22px 19px;
-  margin: auto 3px auto auto;
 }
 .element__like:hover {
   opacity: 0.5;
   cursor: pointer;
-  /* background-image: url(images/heart-hover.png); */
 }
 .element__like_active {
   opacity: 1;

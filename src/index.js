@@ -1,6 +1,5 @@
 import './pages/index.css';
 import {
-  initialCards,
   elements,
   popupProfile,
   buttonOpenPopupEditProfile,
@@ -26,24 +25,38 @@ import {
   createElement
 } from './components/card.js';
 import {
-  openPopup,closePopup
+  openPopup, closePopup
 } from './components/modal.js'
 import {
   enableValidation
 } from './components/validate.js'
+import {
+  getInitialCards, getProfileInfo, editProfileInfo, addCard
+} from './components/api.js'
 
-initialCards.forEach(function(elem){
-  const element = createElement(elem.link,elem.name);
-  elements.append(element);
-})
+getInitialCards()
+  .then(cards => {
+    cards.forEach(function (elem) {
+      const element = createElement(elem.link, elem.name, elem.likes.length, elem.owner._id);
+      elements.append(element);
+    })
+  })
+  .catch(error => {
+    console.log(error)
+  })
+getProfileInfo()
+  .then(info => {
+    profileTitle.textContent = info.name;
+    profileDescription.textContent = info.about;
+  })
+  .catch(error => {
+    console.log(error)
+  })
 
-
-buttonOpenPopupEditProfile.addEventListener('click',editPopupProfile);
-buttonOpenPopupAddCard.addEventListener('click',function()
-{
+buttonOpenPopupEditProfile.addEventListener('click', editPopupProfile);
+buttonOpenPopupAddCard.addEventListener('click', function () {
   const buttonElement = formElementMesto.querySelector('.popup__submit-button');
-  if(mestoUrl.value === '' || mestoTitle === '')
-  {
+  if (mestoUrl.value === '' || mestoTitle === '') {
     buttonElement.classList.add('popup__submit-button_disabled');
     buttonElement.disabled = true;
   }
@@ -54,42 +67,55 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
-formElementEdit.addEventListener('submit',submitSaveProfile);
-formElementMesto.addEventListener('submit',submitAddCardForm);
+formElementEdit.addEventListener('submit', submitSaveProfile);
+formElementMesto.addEventListener('submit', submitAddCardForm);
 
 
 
-function editPopupProfile(){
+function editPopupProfile() {
   openPopup(popupProfile);
   inputName.value = profileTitle.textContent;
   inputDescription.value = profileDescription.textContent;
 }
 
-function submitSaveProfile(evt){
+function submitSaveProfile(evt) {
   evt.preventDefault();
-  profileTitle.textContent = inputName.value;
-  profileDescription.textContent = inputDescription.value;
+  editProfileInfo(inputName.value, inputDescription.value)
+    .then(info => {
+      profileTitle.textContent = info.name;
+      profileDescription.textContent = info.about;
+      console.log(info)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   formElementEdit.reset();
   closePopup(popupProfile);
 }
-function submitAddCardForm(evt){
+function submitAddCardForm(evt) {
   evt.preventDefault();
-  const element = createElement(mestoUrl.value,mestoTitle.value)
-  elements.prepend(element);
+  addCard(mestoTitle.value, mestoUrl.value)
+    .then(card => {
+      const element = createElement(card.link, card.name)
+      elements.prepend(element);
+    })
+    .catch(error => {
+      console.log(error)
+    })
   formElementMesto.reset();
   closePopup(popupAddCard);
 }
 
 
-buttonEditAvatar.addEventListener('click',function(){
+buttonEditAvatar.addEventListener('click', function () {
   openPopup(popupAvatar);
 });
-buttonCloseAvatar.addEventListener('click',function(){
+buttonCloseAvatar.addEventListener('click', function () {
   closePopup(popupAvatar);
 })
-formAvatarEdit.addEventListener('submit',submitEditAvatar);
+formAvatarEdit.addEventListener('submit', submitEditAvatar);
 
-function submitEditAvatar(evt){
+function submitEditAvatar(evt) {
   evt.preventDefault();
   profileImage.src = popupInputAvatar.value
   formAvatarEdit.reset();
@@ -103,5 +129,5 @@ enableValidation({
   inactiveButtonClass: 'popup__submit-button_disabled',
   inputErrorClass: 'popup__input_error',
   errorClass: 'popup__text_error_active'
-}); 
+});
 
