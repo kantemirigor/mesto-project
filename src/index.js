@@ -19,7 +19,10 @@ import {
   popupAvatar,
   buttonCloseAvatar,
   formAvatarEdit,
-  profileImage
+  profileImage,
+  submitEditProfile,
+  submitAddMesto,
+  submitUpdateAvatar
 } from './components/constants.js';
 import {
   createElement
@@ -31,27 +34,68 @@ import {
   enableValidation
 } from './components/validate.js'
 import {
-  getInitialCards, getProfileInfo, editProfileInfo, addCard
+  getInitialCards, getProfileInfo, editProfileInfo, addCard, updateAvatar
 } from './components/api.js'
 
-getInitialCards()
-  .then(cards => {
-    cards.forEach(function (elem) {
-      const element = createElement(elem.link, elem.name, elem.likes.length, elem.owner._id);
-      elements.append(element);
+
+let userId;
+
+Promise.all([getProfileInfo(), getInitialCards()])
+  .then(([user, cards]) => {
+    if (user) {
+      userId = user._id;
+      const avatar = document.querySelector('.profile__avatar');
+      const name = document.querySelector('.profile__title');
+      const about = document.querySelector('.profile__description');
+      avatar.src = user.avatar;
+      name.textContent = user.name;
+      about.textContent = user.about;
+    }
+    if (cards) {
+      cards.forEach(function (item) {
+        const element = createElement(userId, item)
+        elements.append(element)
+      })
+    }
+  })
+  .catch(error => {
+    console.error(error);
+  })
+function submitSaveProfile(evt) {
+  evt.preventDefault();
+  const delLoading = setLoading(submitEditProfile);
+  editProfileInfo(inputName.value, inputDescription.value)
+    .then(info => {
+      profileTitle.textContent = info.name;
+      profileDescription.textContent = info.about;
     })
-  })
-  .catch(error => {
-    console.log(error)
-  })
-getProfileInfo()
-  .then(info => {
-    profileTitle.textContent = info.name;
-    profileDescription.textContent = info.about;
-  })
-  .catch(error => {
-    console.log(error)
-  })
+    .catch(error => {
+      console.log(error)
+    })
+    .finally(() => {
+      delLoading();
+    })
+  formElementEdit.reset();
+  closePopup(popupProfile);
+}
+
+function submitAddCardForm(evt) {
+  evt.preventDefault();
+  const delLoading = setLoading(submitAddMesto);
+  addCard(mestoTitle.value, mestoUrl.value)
+    .then(card => {
+      const element = createElement(userId, card)
+      elements.prepend(element);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    .finally(() => {
+      delLoading();
+    })
+  formElementMesto.reset();
+  closePopup(popupAddCard);
+}
 
 buttonOpenPopupEditProfile.addEventListener('click', editPopupProfile);
 buttonOpenPopupAddCard.addEventListener('click', function () {
@@ -78,33 +122,8 @@ function editPopupProfile() {
   inputDescription.value = profileDescription.textContent;
 }
 
-function submitSaveProfile(evt) {
-  evt.preventDefault();
-  editProfileInfo(inputName.value, inputDescription.value)
-    .then(info => {
-      profileTitle.textContent = info.name;
-      profileDescription.textContent = info.about;
-      console.log(info)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  formElementEdit.reset();
-  closePopup(popupProfile);
-}
-function submitAddCardForm(evt) {
-  evt.preventDefault();
-  addCard(mestoTitle.value, mestoUrl.value)
-    .then(card => {
-      const element = createElement(card.link, card.name)
-      elements.prepend(element);
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  formElementMesto.reset();
-  closePopup(popupAddCard);
-}
+
+
 
 
 buttonEditAvatar.addEventListener('click', function () {
@@ -117,10 +136,22 @@ formAvatarEdit.addEventListener('submit', submitEditAvatar);
 
 function submitEditAvatar(evt) {
   evt.preventDefault();
-  profileImage.src = popupInputAvatar.value
-  formAvatarEdit.reset();
+  const delLoading = setLoading(submitUpdateAvatar);
+  updateAvatar(popupInputAvatar.value)
+    .then(user => {
+      profileImage.src = user.avatar;
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    .finally(() => {
+      delLoading();
+    })
   closePopup(popupAvatar);
-}
+  formAvatarEdit.reset();
+
+};
+
 
 enableValidation({
   formSelector: '.popup__form',
@@ -131,3 +162,12 @@ enableValidation({
   errorClass: 'popup__text_error_active'
 });
 
+function setLoading(submitButton) {
+  const buttonText = submitButton.textContent;
+  submitButton.textContent = 'Сохранение...';
+  submitButton.disabled = true;
+  return function () {
+    submitButton.textContent = buttonText;
+    submitButton.disabled = false;
+  }
+}

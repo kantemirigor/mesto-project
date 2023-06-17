@@ -34,3 +34,12 @@ export function addCard(name, link) {
 export function delCard(id) {
     return api('DELETE', `/cards/${id}`)
 }
+export function putLike(id) {
+    return api('PUT', `/cards/likes/${id}`);
+}
+export function delLike(id) {
+    return api('DELETE', `/cards/likes/${id}`);
+}
+export function updateAvatar(avatar) {
+    return api('PATCH', '/users/me/avatar', { avatar });
+}

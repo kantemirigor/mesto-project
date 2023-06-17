@@ -1,45 +1,95 @@
 import {
-  elements,
-  tempElement,
-  popupImage,
-  popupBigImage,
-  popupBigImageTitle
+  tempElement
 } from './constants.js';
 import {
-  openPopup
+  openPopupImg
 } from './modal.js'
 import {
-  delCard
+  delCard, putLike, delLike
 } from './api.js'
 
-elements.addEventListener('click', function (event) {
-  const target = event.target;
-  if (target.id === 'like') {
-    target.classList.toggle('element__like_active')
+
+function deleteElement(event) {
+  const id = event.target.dataset.id;
+  delCard(id)
+    .then(() => {
+      event.target.closest('.element').remove()
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+
+
+function addLike(id, likes) {
+  const element = document.querySelector(`[data-id="${id}"]`);
+  const elementLike = element.querySelector('.element__count-likes');
+  const elementLikeButton = element.querySelector('.element__like');
+  elementLike.textContent = likes;
+  elementLikeButton.classList.add('element__like_active');
+}
+
+function removeLike(id, likes) {
+  const element = document.querySelector(`[data-id="${id}"]`);
+  const elementLike = element.querySelector('.element__count-likes');
+  const elementLikeButton = element.querySelector('.element__like');
+  elementLike.textContent = likes;
+  elementLikeButton.classList.remove('element__like_active');
+}
+function checkLike(id) {
+  const element = document.querySelector(`[data-id="${id}"]`);
+  const elementLikeButton = element.querySelector('.element__like');
+  return elementLikeButton.classList.contains('element__like_active');
+}
+
+function toggleLike(event) {
+  const id = event.target.dataset.id;
+
+  if (checkLike(id)) {
+    delLike(id)
+      .then(card => {
+        removeLike(id, card.likes.length);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  } else {
+    putLike(id)
+      .then(card => {
+        addLike(id, card.likes.length);
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
-  if (target.id === 'delete') {
-    console.log(target)
-    target.parentElement.remove();
-  }
-  if (target.id === 'element-image') {
-    popupBigImage.src = target.src;
-    popupBigImage.alt = target.closest('.element').textContent;
-    popupBigImageTitle.textContent = target.closest('.element').textContent;
-    openPopup(popupImage);
-  }
-})
-export function createElement(url, title, countLikes, id) {
+}
+export function createElement(myId, data) {
+
   const element = tempElement.querySelector('.element').cloneNode(true);
   const elementImage = element.querySelector('.element__image');
+  const elementTrash = element.querySelector('.element__trash');
+  const elementLikeButton = element.querySelector('.element__like')
   const elementLike = element.querySelector('.element__count-likes');
-  const elementTrash = element.querySelector('.element__trash')
-  elementLike.textContent = countLikes;
+  const elementTitle = element.querySelector('.element__text');
 
-  elementImage.src = url;
-  elementImage.alt = title;
-  element.querySelector('.element__text').textContent = title;
-  if (id !== '3b57a3c6d612c9dd2904d820') {
-    elementTrash.remove();
+  element.dataset.id = data._id
+  elementImage.src = data.link
+  elementImage.alt = data.name
+  elementLikeButton.dataset.id = data._id
+  elementLike.textContent = data.likes.length
+  elementTrash.dataset.id = data._id
+  elementTitle.textContent = data.name
+
+  elementImage.addEventListener('click', openPopupImg)
+  elementLikeButton.addEventListener('click', toggleLike)
+
+  if (myId === data.owner._id) {
+    elementTrash.addEventListener('click', deleteElement)
+  } else {
+    elementTrash.style.display = 'none'
+  }
+  if (data.likes.some(like => like._id === myId)) {
+    elementLikeButton.classList.add('element__like_active');
   }
   return element;
 }

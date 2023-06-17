@@ -39,7 +39,7 @@
                         <span class="popup__text_error popup__input-description-error"></span>
                     </div>
                 </div>
-            <input class="popup__submit-button" type="submit" value="Сохранить">
+            <input class="popup__submit-button submit-edit-profile" type="submit" value="Сохранить">
             </form>
           <button class="popup__close-button" id="close-edit-popup" aria-label="Закрыть окно" type="button"></button>
         </div>
@@ -58,7 +58,7 @@
                         <span class="popup__text_error popup__input-link-error"></span>
                     </div>
                 </div>
-                <input class="popup__submit-button" type="submit" value="Сохранить">
+                <input class="popup__submit-button submit-add-mesto" type="submit" value="Сохранить">
             </form>
           <button class="popup__close-button" id="close-mesto-popup" aria-label="Закрыть окно" type="button"></button>
         </div>
@@ -73,9 +73,14 @@
     <div class="popup popup-avatar">
         <div class="popup__container">
             <h2 class="popup__title">Обновить аватар</h2>
-            <form class="popup__form" id="popup-avatar" action="#" name="popup__form">
-            <input name="popup__input-link" id="popup__input-link-avatar" class="popup__input" type="text" placeholder="Ссылка на картинку">
-            <input class="popup__submit-button" type="submit" value="Сохранить">
+            <form class="popup__form" id="popup-avatar" action="#" name="popup__form" novalidate>
+            <div class="inputs">
+                <div class="popup__input-wrapper">
+                    <input name="popup__input-link" id="popup__input-avatar" class="popup__input" type="url" placeholder="Ссылка на картинку" required>
+                    <span class="popup__text_error popup__input-avatar-error"></span>
+                </div>
+            </div>
+            <input class="popup__submit-button submit-edit-avatar" type="submit" value="Сохранить">
             </form>
           <button class="popup__close-button" id="close-avatar-popup" aria-label="Закрыть окно" type="button"></button>
         </div>
