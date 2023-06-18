@@ -19,11 +19,9 @@ export function openPopupImg(event) {
 }
 popups.forEach(element => {
   element.addEventListener('click', function (event) {
-    event.target.classList.value.split(' ').forEach(elem => {
-      if (elem === 'popup') {
-        closePopup(element);
-      }
-    });
+    if (event.target.classList.contains('popup')) {
+      closePopup(element)
+    }
   })
 });
 function closeByEscape(evt) {

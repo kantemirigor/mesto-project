@@ -68,6 +68,8 @@ function submitSaveProfile(evt) {
     .then(info => {
       profileTitle.textContent = info.name;
       profileDescription.textContent = info.about;
+      formElementEdit.reset();
+      closePopup(popupProfile);
     })
     .catch(error => {
       console.log(error)
@@ -75,8 +77,6 @@ function submitSaveProfile(evt) {
     .finally(() => {
       delLoading();
     })
-  formElementEdit.reset();
-  closePopup(popupProfile);
 }
 
 function submitAddCardForm(evt) {
@@ -86,6 +86,8 @@ function submitAddCardForm(evt) {
     .then(card => {
       const element = createElement(userId, card)
       elements.prepend(element);
+      formElementMesto.reset();
+      closePopup(popupAddCard);
     })
     .catch(error => {
       console.log(error)
@@ -93,8 +95,6 @@ function submitAddCardForm(evt) {
     .finally(() => {
       delLoading();
     })
-  formElementMesto.reset();
-  closePopup(popupAddCard);
 }
 
 buttonOpenPopupEditProfile.addEventListener('click', editPopupProfile);
@@ -140,6 +140,8 @@ function submitEditAvatar(evt) {
   updateAvatar(popupInputAvatar.value)
     .then(user => {
       profileImage.src = user.avatar;
+      closePopup(popupAvatar);
+      formAvatarEdit.reset();
     })
     .catch(error => {
       console.log(error)
@@ -147,9 +149,6 @@ function submitEditAvatar(evt) {
     .finally(() => {
       delLoading();
     })
-  closePopup(popupAvatar);
-  formAvatarEdit.reset();
-
 };
 
 
